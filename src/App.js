@@ -1,23 +1,89 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.scss";
+import React, { useState, useEffect } from "react";
 
 function App() {
+  const [input, setInput] = useState("");
+  const [search, setSearch] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [movies, setMovies] = useState([]);
+  const apiUrl =
+    "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=04c35731a5ee918f014970082a0088b1&page=1";
+  const imgUrl = "https://image.tmdb.org/t/p/original";
+  const handleChange = (event) => {
+    setInput(event.target.value);
+    console.log(search);
+  };
+  const handleSearch = async () => {
+    try {
+      const result = await fetch(
+        `https://api.themoviedb.org/3/search/movie?&api_key=04c35731a5ee918f014970082a0088b1&query=${input}&append_to_response=images`
+      );
+      if (result.ok) {
+        const searchResults = await result.json();
+        setMovies(searchResults.results);
+        console.log("something");
+        setSearch(`Search results for ${input}`);
+        setInput("");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    setIsLoading(true);
+    const fetchMovies = async () => {
+      try {
+        const result = await fetch(apiUrl);
+        if (result.ok) {
+          const initialResults = await result.json();
+          setMovies(initialResults.results);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchMovies();
+    setIsLoading(false);
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+        <h1>Movies</h1>
+        <div is="search-bar">
+          <input
+            type="search"
+            value={input}
+            placeholder="Search..."
+            onChange={handleChange}
+          ></input>
+          <button onClick={handleSearch}>Search</button>
+        </div>
       </header>
+      <div id="container">
+        <p id="search-text">{search}</p>
+        <div id="search-results">
+          {movies.map((movie) => {
+            const path =
+              movie.poster_path || movie.backdrop_path || movie.still_path;
+            return (
+              <div key={movie.id} className="movies">
+                <img
+                  className="posters"
+                  src={`${imgUrl}${path}`}
+                  alt={movie.title}
+                  width="180px"
+                  height="auto"
+                />
+                <div className="titles">
+                  <p>{movie.title}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }

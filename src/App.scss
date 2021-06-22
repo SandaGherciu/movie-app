@@ -1,0 +1,81 @@
+$primary-color: #212121;
+$secondary-color: #eff2ed;
+$tertiary-color: darkgray;
+
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background-color: $tertiary-color;
+
+  h1 {
+    color: $primary-color;
+  }
+
+  input {
+    padding: 8px 16px;
+    font-size: 14px;
+    margin-right: 8px;
+    border: 1px solid $primary-color;
+    border-radius: 4px;
+    background-color: $primary-color;
+    color: $secondary-color;
+  }
+
+  button {
+    padding: 8px 16px;
+    border: 1px solid $primary-color;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: $primary-color;
+    color: $secondary-color;
+  }
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 40px;
+  background-color: $secondary-color;
+
+  #search-text {
+    margin-left: 100px;
+    font-style: italic;
+  }
+
+  #search-results {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .movies {
+      flex-direction: column;
+      border-radius: 4px;
+      width: 180px;
+      height: 300px;
+      margin: 16px 16px;
+      background-color: $primary-color;
+
+      .posters {
+        border-radius: 4px 4px 0px 0px;
+      }
+
+      .titles {
+        text-align: center;
+        margin-bottom: 4px;
+        white-space: nowrap;
+        overflow: auto;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        color: $secondary-color;
+      }
+
+      p {
+        margin: 0px;
+      }
+    }
+  }
+}
