@@ -1,6 +1,6 @@
 $primary-color: #212121;
 $secondary-color: #eff2ed;
-$tertiary-color: darkgray;
+$tertiary-color: #a9a9a9;
 
 header {
   display: flex;
@@ -50,6 +50,32 @@ header {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+
+    .lds-dual-ring {
+      display: inline-block;
+      align-self: center;
+      width: 80px;
+      height: 80px;
+    }
+    .lds-dual-ring:after {
+      content: " ";
+      display: block;
+      width: 64px;
+      height: 64px;
+      margin: 8px;
+      border-radius: 50%;
+      border: 6px solid #a9a9a9;
+      border-color: #a9a9a9 transparent #a9a9a9 transparent;
+      animation: lds-dual-ring 1.2s linear infinite;
+    }
+    @keyframes lds-dual-ring {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
 
     .movies {
       flex-direction: column;

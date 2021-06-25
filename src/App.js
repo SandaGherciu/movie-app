@@ -47,14 +47,14 @@ function App() {
     };
     fetchMovies();
     setIsLoading(false);
-  }, []);
+  }, [apiUrl]);
 
   return (
     <div className="App">
       <header>
         <h1>Movies</h1>
 
-        <div is="search-bar">
+        <div id="search-bar">
           <input
             type="search"
             value={input}
@@ -69,26 +69,31 @@ function App() {
         <p id="search-text">{search}</p>
 
         <div id="search-results">
-          {movies.map((movie) => {
-            const path =
-              movie.poster_path || movie.backdrop_path || movie.still_path;
+          {isLoading ? (
+            <div className="lds-dual-ring"></div>
+          ) : (
+            movies.map((movie) => {
+              const path =
+                movie.poster_path || movie.backdrop_path || movie.still_path;
 
-            return (
-              <div key={movie.id} className="movies">
-                <img
-                  className="posters"
-                  src={`${imgUrl}${path}`}
-                  alt={movie.title}
-                  width="180px"
-                  height="auto"
-                />
+              return (
+                <div key={movie.id} className="movies">
+                  <img
+                    className="posters"
+                    src={`${imgUrl}${path}`}
+                    alt={movie.title}
+                    width="180px"
+                    height="auto"
+                  />
 
-                <div className="titles">
-                  <p>{movie.title}</p>
+                  <div className="titles">
+                    <p>{movie.title}</p>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          )}
+          {}
         </div>
       </div>
     </div>
